@@ -1,0 +1,11 @@
+site_name: Mis Prácticas
+theme:
+  name: material
+nav:
+  - Inicio: index.md
+  - Matemáticas:
+      - 'Práctica 1': matematicas/practica1.md
+      - 'Práctica 2': matematicas/practica2.md
+  - Programación:
+      - 'Práctica 1': programacion/practica1.md
+      - 'Práctica 2': programacion/practica2.md
