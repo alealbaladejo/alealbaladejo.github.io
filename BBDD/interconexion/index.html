@@ -1,0 +1,822 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../instalaciones/">
+      
+      
+        <link rel="next" href="../sql-plsql/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
+    
+    
+      
+        <title>Interconexión de servidores de Bases de Datos - Mis Prácticas</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#interconexion-de-servidores-de-bases-de-datos" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Mis Prácticas" class="md-header__button md-logo" aria-label="Mis Prácticas" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mis Prácticas
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Interconexión de servidores de Bases de Datos
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Mis Prácticas" class="md-nav__button md-logo" aria-label="Mis Prácticas" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mis Prácticas
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inicio
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Administración de Sistemas Gestores de Bases de Datos
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Administración de Sistemas Gestores de Bases de Datos
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../instalaciones/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Instalaciones de clientes y servidores
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Interconexión de servidores de Bases de Datos
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Interconexión de servidores de Bases de Datos
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#realizar-un-enlace-entre-dos-servidores-de-bases-de-datos-oracle-explicando-la-configuracion-necesaria-en-ambos-extremos-y-demostrando-su-funcionamiento-realizando-alguna-operacion-que-implique-el-uso-simultaneo-de-ambas-bases-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Realizar un enlace entre dos servidores de bases de datos ORACLE, explicando la configuración necesaria en ambos extremos y demostrando su funcionamiento realizando alguna operación que implique el uso simultáneo de ambas bases de datos.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#realizar-un-enlace-entre-dos-servidores-de-bases-de-datos-postgres-explicando-la-configuracion-necesaria-en-ambos-extremos-y-demostrando-su-funcionamiento-realizando-alguna-operacion-que-implique-el-uso-simultaneo-de-ambas-bases-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Realizar un enlace entre dos servidores de bases de datos Postgres, explicando la configuración necesaria en ambos extremos y demostrando su funcionamiento realizando alguna operación que implique el uso simultáneo de ambas bases de datos.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#realizar-un-enlace-bidireccional-entre-un-servidor-oracle-y-otro-postgres-empleando-heterogeneus-services-explicando-la-configuracion-necesaria-en-ambos-extremos-y-demostrando-su-funcionamiento-realizando-alguna-operacion-que-implique-el-uso-simultaneo-de-ambas-bases-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Realizar un enlace bidireccional entre un servidor ORACLE y otro Postgres empleando Heterogeneus Services, explicando la configuración necesaria en ambos extremos y demostrando su funcionamiento realizando alguna operación que implique el uso simultáneo de ambas bases de datos.
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql-plsql/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL / PLSQL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#realizar-un-enlace-entre-dos-servidores-de-bases-de-datos-oracle-explicando-la-configuracion-necesaria-en-ambos-extremos-y-demostrando-su-funcionamiento-realizando-alguna-operacion-que-implique-el-uso-simultaneo-de-ambas-bases-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Realizar un enlace entre dos servidores de bases de datos ORACLE, explicando la configuración necesaria en ambos extremos y demostrando su funcionamiento realizando alguna operación que implique el uso simultáneo de ambas bases de datos.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#realizar-un-enlace-entre-dos-servidores-de-bases-de-datos-postgres-explicando-la-configuracion-necesaria-en-ambos-extremos-y-demostrando-su-funcionamiento-realizando-alguna-operacion-que-implique-el-uso-simultaneo-de-ambas-bases-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Realizar un enlace entre dos servidores de bases de datos Postgres, explicando la configuración necesaria en ambos extremos y demostrando su funcionamiento realizando alguna operación que implique el uso simultáneo de ambas bases de datos.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#realizar-un-enlace-bidireccional-entre-un-servidor-oracle-y-otro-postgres-empleando-heterogeneus-services-explicando-la-configuracion-necesaria-en-ambos-extremos-y-demostrando-su-funcionamiento-realizando-alguna-operacion-que-implique-el-uso-simultaneo-de-ambas-bases-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Realizar un enlace bidireccional entre un servidor ORACLE y otro Postgres empleando Heterogeneus Services, explicando la configuración necesaria en ambos extremos y demostrando su funcionamiento realizando alguna operación que implique el uso simultáneo de ambas bases de datos.
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="interconexion-de-servidores-de-bases-de-datos">INTERCONEXIÓN DE SERVIDORES DE BASES DE DATOS</h1>
+<p><img alt="portada" src="../imagenes/portada-interconexion.png" /></p>
+<p>Las interconexiones de servidores de bases de datos son operaciones que pueden ser muy útiles en diferentes contextos. Básicamente, se trata de acceder a datos que no están almacenados en nuestra base de datos, pudiendo combinarlos con los que ya tenemos.</p>
+<p>En esta práctica veremos varias formas de crear un enlace entre distintos servidores de bases de datos.</p>
+<h2 id="realizar-un-enlace-entre-dos-servidores-de-bases-de-datos-oracle-explicando-la-configuracion-necesaria-en-ambos-extremos-y-demostrando-su-funcionamiento-realizando-alguna-operacion-que-implique-el-uso-simultaneo-de-ambas-bases-de-datos">Realizar un enlace entre dos servidores de bases de datos ORACLE, explicando la configuración necesaria en ambos extremos y demostrando su funcionamiento realizando alguna operación que implique el uso simultáneo de ambas bases de datos.</h2>
+<p>Lo primero que tenemos que tener serán dos servidores de bases de datos ORACLE. En mi caso los servidores serán <strong>abd (192.168.1.168)</strong> y <strong>abd2 (192.168.1.167)</strong>. En cada uno de ellos tenemos un usuario alejandro con permisos sobre la base de datos.</p>
+<p>Vamos a configurar los ficheros <strong>tnsnames.ora</strong> de cada servidor. Como ya sabemos estos ficheros se usan para definir alias de red para permitir a las aplicaciones clientes conectarse a una base de datos Oracle.</p>
+<p>En el <strong>servidor abd</strong> y <strong>abd2</strong> quedarían de la siguiente forma:</p>
+<p><img alt="TNS" src="../imagenes/tns.png" /></p>
+<p>A continuación tenemos que asegurarnos que el fichero <strong>sqlnet.ora</strong>, que se utiliza para resolver los nombres de servicio de Oracle, esté siendo utilizado correctamente. Quedaría así:</p>
+<p><img alt="sqlnet" src="../imagenes/sqlnet.png" /></p>
+<p>Una vez que hayamos modificado estos archivos tendremos que reiniciar el servicio de Oracle, para que se apliquen los cambios.
+<code>sudo /etc/init.d/oracledb_ORCLCDB-21c restart</code></p>
+<p>Si queremos acceder desde nuestra máquina cliente a los servidores, tendremos que configurar el <strong>tnsnames.ora</strong> también en el cliente que quedaría de la misma forma.</p>
+<p>A continuación vamos a usar un comando nuevo como es <strong>tnsping</strong>. Es un comando que verifica si el nombre del servicio definido en <strong>tnsnames.ora</strong> se puede resolver o no correctamente. Simula una conexión a la base de datos especificada sin llegar a conectarse.</p>
+<p><img alt="tnsping" src="../imagenes/tnsping.png" /></p>
+<p>Como vemos, al hacer <strong>tnsping</strong>  a las dos bases de datos que tenemos, ha salido satisfactoriamente, por lo que lo tenemos bien configurado.</p>
+<p>Ahora nos vamos a conectar a la base de datos de <strong>abd</strong> donde vamos a crear el enlace para poder acceder a datos de la base de datos de <strong>abd2</strong>:</p>
+<pre><code>ale@vodkita:~$ sqlplus alejandro/contraseña@//abd:1521/ORCLCDB
+[...]
+SQL&gt; CREATE DATABASE LINK abd2_link CONNECT TO alejandro IDENTIFIED BY contraseña USING 'ABD2';
+
+Enlace con la base de datos creado.
+</code></pre>
+<p>Para ver el funcionamiento vamos a crear alguna tabla en cada una de las bases de datos.</p>
+<p>En <strong>abd</strong> creamos la tabla de <strong>empleados</strong> con algunos datos como <strong>id, nombre y puesto</strong>.</p>
+<pre><code>SQL&gt; CREATE TABLE empleados (
+    empleado_id NUMBER PRIMARY KEY,
+    nombre VARCHAR2(30),
+    puesto VARCHAR2(30));
+
+Tabla creada.
+
+SQL&gt; INSERT INTO empleados VALUES (1,'Alejandro', 'Ingeniero');
+
+1 fila creada.
+
+SQL&gt; INSERT INTO empleados VALUES (2,'Pineda', 'Analista');
+
+1 fila creada.
+
+SQL&gt; INSERT INTO empleados VALUES (3,'Kiko', 'Desarrollador');
+
+1 fila creada.
+
+</code></pre>
+<p>A continuación nos conectamos a la base de datos del servidor abd2, donde vamos a crear una tabla proyectos, con el id, nombre y el empleado a cargo.</p>
+<pre><code>ale@vodkita:~$ sqlplus alejandro/contraseña@//abd2:1521/ORCLCDB
+[...]
+SQL&gt; CREATE TABLE proyectos (
+    proyecto_id NUMBER PRIMARY KEY,
+    nombre VARCHAR2(100),
+    empleado_id NUMBER);
+
+Tabla creada.
+
+SQL&gt; INSERT INTO proyectos VALUES (1,'Desarrollo de Software',1);
+
+1 fila creada
+
+SQL&gt; INSERT INTO proyectos VALUES (2,'Implementación de sistema',2);
+
+1 fila creada
+
+SQL&gt; INSERT INTO proyectos VALUES (3,'Actualización de infraestructura',3);
+
+1 fila creada
+
+</code></pre>
+<p>Una vez que tengamos ya los datos insertados, vamos a poder hacer una consulta estando conectados a <strong>abd</strong>, obteniendo datos que existe en <strong>abd2</strong>.</p>
+<p>Por ejemplo con los datos que hemos introducido, vamos a sacar el nombre del empleado, el puesto y proyecto en el que están involucrados todos los empleados.</p>
+<p><img alt="abdlink" src="../imagenes/consulta1.png" /></p>
+<p>Como vemos, hemos creado una consulta usando el abd2_link  que hemos creado anteriormente.</p>
+<p>Para comprobar que tenemos el enlace creado, podemos hacerlo con la siguiente consulta:</p>
+<pre><code>SELECT db_link, username, host
+FROM user_db_links;
+
+DB_LINK         USERNAME        HOST
+-------------   -----------     ------------
+ABD2_LINK       ALEJANDRO       ABD2        
+</code></pre>
+<p>Donde vemos el nombre del enlace (<strong>abd2_link</strong>), el usuario que tiene acceso a ese enlace (<strong>alejandro</strong>) y el host al que va dirigido ese enlace (<strong>abd2</strong>)</p>
+<p>Este enlace solamente nos va a servir si nos conectamos a <strong>abd</strong>, pero si queremos que también nos sirva si nos conectamos a <strong>abd2</strong>, tendremos que crear un nuevo link en dicha base de datos.
+Para ello, entramos en <strong>abd2</strong> y ejecutamos el comando que usamos antes para crear el link, pero cambiando <strong>USING</strong> <strong>‘ABD2’</strong> POR  <strong>USING</strong> <strong>‘ABD’</strong></p>
+<pre><code>ale@vodkita:~$ sqlplus alejandro/contraseña@//abd2:1521/ORCLCDB
+[...]
+SQL&gt; CREATE DATABASE LINK abd2_link CONNECT TO alejandro IDENTIFIED BY contraseña USING 'ABD';
+
+Enlace con la base de datos creado.
+</code></pre>
+<p>Ahora para hacer la consulta, hay que modificar, para que en lugar de seleccionar la tabla proyectos con el enlace, sea la tabla empleados, ya que en esta base de datos la que tenemos nosotros es la de proyectos.</p>
+<p><img alt="abdlink" src="../imagenes/consulta2.png" /></p>
+<p>Vemos que nos devuelve la misma información.
+Si comprobamos la tabla empleado en abd2, vemos que no tiene datos, sin embargo, si hacemos la consulta sobre el link, vemos que sí:</p>
+<p><img alt="abdlink" src="../imagenes/consulta3.png" /></p>
+<h2 id="realizar-un-enlace-entre-dos-servidores-de-bases-de-datos-postgres-explicando-la-configuracion-necesaria-en-ambos-extremos-y-demostrando-su-funcionamiento-realizando-alguna-operacion-que-implique-el-uso-simultaneo-de-ambas-bases-de-datos">Realizar un enlace entre dos servidores de bases de datos Postgres, explicando la configuración necesaria en ambos extremos y demostrando su funcionamiento realizando alguna operación que implique el uso simultáneo de ambas bases de datos.</h2>
+<p>Para empezar vamos a crear una base de datos en cada servidor. En el servidor abd: </p>
+<pre><code>ale@abd:~$ sudo -u postgres psql
+[...]
+
+postgres=# CREATE DATABASE pruebas;
+CREATE DATABASE
+
+postgres=# \c pruebas
+You are now connected to database &quot;pruebas&quot; as user &quot;postgres&quot;.
+pruebas=# GRANT ALL PRIVILEGES ON DATABASE pruebas TO alejandro;
+GRANT
+pruebas=# ALTER DATABASE pruebas OWNER TO alejandro;
+ALTER DATABASE
+pruebas=&gt; CREATE TABLE empleados(
+    empleado_id NUMERIC PRIMARY KEY,
+    nombre VARCHAR(20),
+    puesto VARCHAR(20));
+CREATE TABLE
+pruebas=&gt; INSERT INTO empleados VALUES (1,'Alejandro', 'Ingeniero'),(2,'Pineda','Analista'),(3,'Kiko','Desarrollador');
+INSERT 0 3
+
+pruebas=&gt; select * from empleados;
+ empleado_id |  nombre   |    puesto
+-----------------------------------------
+           1 | Alejandro | Ingeniero
+           2 | Pineda    | Analista
+           3 | Kiko      | Desarrollador
+(3 filas)
+</code></pre>
+<p>Ahora nos vamos al servidor <strong>abd2</strong></p>
+<pre><code>ale@abd2:~$ sudo -U alejandro -h 192.168.1.167 -d pruebas 
+
+[...]
+pruebas=&gt; CREATE TABLE proyectos(
+    proyecto_id NUMERIC PRIMARY KEY,
+    nombre VARCHAR(25),
+    empleado_id NUMERIC);
+CREATE TABLE
+
+pruebas=&gt; INSERT INTO   proyectos VALUES (1,'Infraestructura', 1),(2,'Implantacion sistema',2),(3,'Desarrollo software',3);
+INSERT 0 3
+
+pruebas=&gt; select * from proyectos;
+ proyecto_id |        nombre        | empleado_id
+--------------------------------------------------
+           1 | Infraestructura      |           1
+           2 | Implantacion sistema |           2
+           3 | Desarrollo software  |           3
+(3 filas)
+</code></pre>
+<p>Ahora  vamos a crear un DBLINK, para ello, habrá que ser superusuario, así que entraremos con el usuario postgres.</p>
+<p>Para crear el enlace:</p>
+<pre><code>postgres=# CREATE EXTENSION dblink;
+CREATE EXTENSION
+</code></pre>
+<p><img alt="pg_dblink" src="../imagenes/pg_dblink.png" /></p>
+<p>Tanbién lo crearemos en el otro servidor.</p>
+<p><img alt="pg_dblink2" src="../imagenes/pg_dblink2.png" /></p>
+<p>Para comprobar el funcionamiento, nos metemos en el servidor abd y haremos una consulta donde será una consulta a la base de datos del servidor abd2.</p>
+<pre><code>SELECT * FROM dblink('host=192.168.1.167 dbname=pruebas user=alejandro password=contraseña', 'SELECT proyecto_id, nombre, empleado_id FROM proyectos')
+AS proyectos(proyecto_id NUMERIC, nombre VARCHAR, empleado_id NUMERIC);
+ proyecto_id |        nombre        | empleado_id
+--------------------------------------------------
+           1 | Infraestructura      |           1
+           2 | Implantacion sistema |           2
+           3 | Desarrollo software  |           3
+(3 filas)
+</code></pre>
+<p>Si hacemos una consulta en la que queramos datos de las dos tablas, como por ejemplo el nombre y el proyecto asociado:</p>
+<p><img alt="consulta4" src="../imagenes/consulta4.png" /></p>
+<h2 id="realizar-un-enlace-bidireccional-entre-un-servidor-oracle-y-otro-postgres-empleando-heterogeneus-services-explicando-la-configuracion-necesaria-en-ambos-extremos-y-demostrando-su-funcionamiento-realizando-alguna-operacion-que-implique-el-uso-simultaneo-de-ambas-bases-de-datos">Realizar un enlace bidireccional entre un servidor ORACLE y otro Postgres empleando Heterogeneus Services, explicando la configuración necesaria en ambos extremos y demostrando su funcionamiento realizando alguna operación que implique el uso simultáneo de ambas bases de datos.</h2>
+<p>Lo primero que vamos a realizar es la instalación de los controladores para postgresql.</p>
+<p><code>ale@oracle19:~$ sudo apt install unixodbc odbc-postgresql</code></p>
+<p>Una vez que ya tengamos los controladores instalados, pasamos a la configuración de algunos archivos necesarios para la interconexión entre Postgresql y Oracle.</p>
+<p>El primer fichero a configurar es el <strong>/etc/odbcinst.ini.</strong> Este fichero lo que hace es configurar los controladores ODBC que se van a utilizar para conectarse a diferentes bases de datos. Quedaría de la siguiente manera:</p>
+<pre><code>ale@oracle19:~$ sudo cat /etc/odbcinst.ini 
+[PostgreSQL ANSI]
+Description = PostgreSQL ODBC driver (ANSI version)
+Driver = /usr/lib/x86_64-linux-gnu/odbc/psqlodbca.so
+Debug = 0
+CommLog = 1
+UsageCount = 1
+[PostgreSQL Unicode]
+Description = PostgreSQL ODBC driver (Unicode version)
+Driver = /usr/lib/x86_64-linux-gnu/odbc/psqlodbcw.so
+Debug = 0
+CommLog = 1
+UsageCount = 1
+</code></pre>
+<p>El siguiente fichero de configuración es el <strong>/etc/odbc.ini</strong>. Este fichero lo que hace es configurar las conexiones DSN para bases de datos específicas a través de ODBC</p>
+<pre><code>ale@oracle19:~$ sudo cat /etc/odbc.ini 
+[PSQLA]
+Debug = 0
+CommLog = 0
+ReadOnly = 1
+Driver = PostgreSQL ANSI
+Servername = 192.168.1.168
+Username = alejandro
+Password = contraseña
+Port = 5432
+Database = pruebas
+Trace = 0
+TraceFile = /tmp/sql.log
+
+[PSQLU]
+Debug = 0
+CommLog = 0
+ReadOnly = 0
+Driver = PostgreSQL Unicode
+Servername = 192.168.1.168
+Username =  alejandro
+Password = contraseña
+Port = 5432
+Database = pruebas
+Trace = 0
+TraceFile = /tmp/sql.log
+
+[Default]
+Driver = /opt/oracle/product/19c/dbhome_1/lib/libsqora.so.19.1
+</code></pre>
+<p>Ahora con el comando  <strong>odbcinst -q -d</strong> , vamos a buscar los controladores que hemos configurado anteriormente.</p>
+<pre><code>ale@oracle19:~$ odbcinst -q -d
+[PostgreSQL ANSI]
+[PostgreSQL Unicode]
+</code></pre>
+<p>También podemos probar el funcionamiento de la conexión a la base de datos Postgres desde el otro servidor. Esto lo haremos con el comando:</p>
+<p><code>ale@oracle19:~$ isql -v PSQLA</code></p>
+<p>Si entramos podremos hacer alguna consulta sobre la base de datos de postgres:</p>
+<p><img alt="isql1" src="../imagenes/isql1.png" /></p>
+<p>De la misma manera podremos hacerlo con PSQLU</p>
+<p><img alt="isql2" src="../imagenes/isql2.png" /></p>
+<p>Ahora tendremos que crear un enlace desde Oracle a Postgres. Para ello crearemos un nuevo fichero para que Oracle pueda conectarse a una base de datos externa.</p>
+<pre><code>ale@oracle19:~$ sudo cat /opt/oracle/product/19c/dbhome_1/hs/admin/initPSQLU.ora 
+HS_FDS_CONNECT_INFO = PSQLU
+HS_FDS_TRACE_LEVEL = Debug
+HS_FDS_SHAREABLE_NAME = /usr/lib/x86_64-linux-gnu/odbc/psqlodbcw.so
+HS_LANGUAGE = AMERICAN_AMERICA.WE8ISO8859P1
+set ODBCINI=/etc/odbc.ini
+</code></pre>
+<p><strong>HS_FDS_CONNECT_INFO = PSQLU</strong>: Define el nombre del DSN, que anteriormente lo hemos configurado en odbc.ini</p>
+<p><strong>HS_FDS_TRACE_LEVEL = Debug</strong>: Activa el registro de depuración detallada para las conexiones.</p>
+<p><strong>HS_FDS_SHAREABLE_NAME = /usr/lib/x86_64-linux-gnu/odbc/psqlodbcw.so</strong>: Es el archivo del controlador ODBC que Oracle debe usar para conectarse a PostgreSQL.</p>
+<p><strong>HS_LANGUAGE = AMERICAN_AMERICA.WE8ISO8859P1</strong>: Esto configura la configuración regional y la codificación de caracteres para la conexión.</p>
+<p><strong>set ODBCINI=/etc/odbc.ini</strong>: Por último se establece la ubicación del archivo de configuración ODBC que contiene la definición del DSN para PostgreSQL.</p>
+<p>A continuación tenemos que modificar el fichero <strong>listener</strong>.ora para incluir la configuración necesaria para que Oracle pueda comunicarse a través del DG4ODBC.</p>
+<pre><code>ale@oracle19:~$ sudo cat /opt/oracle/product/19c/dbhome_1/network/admin/listener.ora
+LISTENER =
+  (DESCRIPTION_LIST =
+    (DESCRIPTION =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = oracle19)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1521))
+    )
+  )
+
+SID_LIST_LISTENER =
+  (SID_LIST =
+    (SID_DESC =
+      (SID_NAME = PSQLU)
+      (ORACLE_HOME = /opt/oracle/product/19c/dbhome_1)
+      (PROGRAM = dg4odbc)
+    )
+  )
+</code></pre>
+<p>Por último, también tenemos que modificar el tnsnames.ora para añadir una entrada que permita a Oracle conectarse a PostgreSQL.</p>
+<pre><code>ale@oracle19:~$ sudo cat /opt/oracle/product/19c/dbhome_1/network/admin/tnsnames.ora 
+ORCLCDB =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = oracle19)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = ORCLCDB)
+    )
+  )
+
+LISTENER_ORCLCDB =
+  (ADDRESS = (PROTOCOL = TCP)(HOST = oracle19)(PORT = 1521))
+
+PSQLU =
+  (DESCRIPTION=
+    (ADDRESS=(PROTOCOL=tcp)(HOST=localhost)(PORT=1521))
+    (CONNECT_DATA=(SID=PSQLU))
+    (HS=OK)
+  )
+</code></pre>
+<p>Cuando ya lo tengamos todo, podemos reiniciar el servicio de Oracle, para aplicar las modificaciones realizadas.</p>
+<p><code>ale@oracle10:~$ sudo /etc/init.d/oracledb_ORCLCDB-19c restart</code></p>
+<p>Y entramos como sys para crear un enlace a la base de datos de PostgreSQL:</p>
+<pre><code>ale@oracle19:~$ rlwrap sqlplus / as sysdba
+
+SQL&gt; CREATE PUBLIC DATABASE LINK postgres connect to &quot;alejandro&quot; IDENTIFIED BY &quot;alejandro&quot; USING 'PSQLU';
+
+Enlace con la base de datos creado.
+</code></pre>
+<p>Ahora nos conectamos con nuestro usuario:</p>
+<pre><code>SQL&gt; connect alejandro
+Introduzca la contraseña: *************
+Introduzca la contraseña:
+Conectado.
+</code></pre>
+<p>Y podemos hacer una consulta a la base de datos de PostgreSQL usando el link creado.</p>
+<pre><code>SQL&gt; SELECT &quot;nombre&quot; FROM &quot;empleados&quot;@postgres;
+nombre
+---------------------------------------
+Alejandro
+Pineda
+Kiko
+</code></pre>
+<p>También podríamos hacer un join con una tabla que tenemos creada en oracle, de proyectos, para comprobar el funcionamiento.</p>
+<pre><code>SQL&gt; SELECT p.nombre AS Proyecto, e.&quot;nombre&quot; AS Empleado 
+FROM PROYECTOS p, &quot;empleados&quot;@postgres e
+WHERE p.empleado_id = e.&quot;empleado_id&quot;@postgres;
+PROYECTO                        EMPLEADO
+---------------------------     --------------------------
+Desarrollo de Software          Alejandro
+Implementación de sistema       Pineda
+Infraestructuras                Kiko
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>
