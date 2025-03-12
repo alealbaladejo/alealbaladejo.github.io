@@ -3,21 +3,9 @@ theme:
   name: material
 nav:
   - Inicio: index.md
-  - 'Servicios de Red':
-
-  - 'Implantación de aplicaciones web':
-
   - 'Administración de Sistemas Gestores de Bases de Datos':
       - 'Instalaciones de clientes y servidores': BBDD/instalaciones.md
       - 'Interconexión de servidores de Bases de Datos': BBDD/interconexion.md
       - 'SQL / PLSQL': BBDD/sql-plsql.md
-  - 'Seguridad y Alta Disponibilidad':
 
-  - 'Administración de Sistemas Operativos':
-
-  - 'Redes':
-
-  - 'Lenguaje de Marcas':
-
-  - 'Fundamentos de Hardware':
 
